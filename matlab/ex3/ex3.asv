@@ -1,15 +1,15 @@
 clear all
 clc
 
-global tau tau_prime epsilon
+global tau tau_prime epsilon population_size
 
 number_of_iteration = 1000;
 number_of_states = 30;
 population_size = 30;
 number_of_parents = 200;
-tau = 0.1/sqrt(2 * sqrt(number_of_states));
-tau_prime = 0.1/sqrt(2 * number_of_states);
-epsilon = 1e-3;
+tau = .5/sqrt(2 * sqrt(number_of_states));
+tau_prime = .5/sqrt(2 * number_of_states);
+epsilon = 1e-2;
 jmax = -inf;
 
 s = randn(number_of_states, population_size);
@@ -27,19 +27,22 @@ while n < number_of_iteration+1
     % Recombinacao
     children = zeros(number_of_states, number_of_parents);
     children_s = zeros(number_of_states, number_of_parents);
-    for i = 1:number_of_parents
-        parent_1 = pop(:,randi(population_size));
-        parent_2 = pop(:,randi(population_size));
-        children(:,i) = crossover_discrete(parent_1, parent_2);
+    i = 1;
+    while i < number_of_parents
+        index_1 = randi(population_size);
+        index_2 = randi(population_size);
+        if index_1 == index_2
+            continue
+        end
+        children(:,i) = crossover_discrete(pop(:,index_1), pop(:,index_1));
         children_s(:,i) = crossover_global_intermediate(s);
+        i = i + 1
     end
     
     % Mutacao
-    [pop, s] = mutation(pop, s);
-    
+    [children, children_s] = mutation(children, children_s);
 
-    
-    pop = comma_selection(pop, children);
+    [pop, s] = comma_selection(children, children_s);
     n = n + 1;
         
 end
