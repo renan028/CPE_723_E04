@@ -135,12 +135,41 @@ Gray. Os códigos MatLab e gráficos são apresentados abaixo:
 \end{figure}
 
 A segunda parte do problema é rodar o algoritmo 10 vezes e verificar a média e
-desvio padrão de iterações para o programa achar o ótimo gloobal.
-Executou-se o código MatLab abaixo:
-\lstinputlisting[style=myMatlab]{matlab/ex2/ex2b.m}
+desvio padrão de iterações para o programa achar o ótimo global. Foi encontrada
+média $19.2$ e desvio padrão $2.7406$.
 
-E foi encontrada média $19.2$ e desvio padrão $2.7406$.
+\end{exercise}
 
+\begin{exercise}{3}
+Segue o código MatLab correspondente ao algoritmo genético para resolver a
+função de Ackley para $n=30$:
+\lstinputlisting[style=myMatlab]{matlab/ex3/ex3.m}
+
+Para a recombinação, escolhem-se pais aleatórios com igual probabilidade da
+população, e geram-se 200 filhos. A recombinação da população é feita de maneira
+discreta, onde índices dos dois pais são escolhidos aleatoriamente para o filho,
+como no código abaixo:
+\lstinputlisting[style=myMatlab]{matlab/ex3/crossover_discrete.m}
+
+A variável $\sigma$ da mutação é alterada de maneira global intermediária, isto
+é, o $\sigma$ filho é a média dos $\sigma$ dos pais. Como no código abaixo: 
+\lstinputlisting[style=myMatlab]{matlab/ex3/crossover_global_intermediate.m}
+
+Para a mutação, optou-se pela não correlacionada de n steps:
+\lstinputlisting[style=myMatlab]{matlab/ex3/mutation.m}
+Todos os filhos sofrem mutação.
+
+Por fim, a função é avaliada para os 200 filhos e escolhem-se os 30 melhores
+por \textit{comma selection}, ou seja, os pais náo sáo avaliados:
+\lstinputlisting[style=myMatlab]{matlab/ex3/f.m}
+\lstinputlisting[style=myMatlab]{matlab/ex3/comma_selection.m}
+
+Avaliando a implementação 100 vezes e calculando-se a média e desvio padrão,
+obtemos:
+\begin{align*}
+J_{\text{medio}} &= 0.026 \\
+J_{\text{std}} &= 0.0018 
+\end{align*}
 \end{exercise}
 
 \end{document}
