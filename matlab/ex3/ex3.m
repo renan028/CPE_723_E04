@@ -29,9 +29,9 @@ while n < number_of_iteration+1
         if index_1 == index_2
             continue
         end
-        children(:,i) = crossover_discrete(pop(:,index_1), pop(:,index_1));
+        children(:,i) = crossover_discrete(pop(:,index_1), pop(:,index_2));
         children_s(:,i) = ...
-            crossover_global_intermediate(s(:,index_1), s(:,index_1));
+            crossover_global_intermediate(s(:,index_1), s(:,index_2));
         i = i + 1;
     end
 
